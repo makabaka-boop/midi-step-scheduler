@@ -1,0 +1,21 @@
+services:
+  verify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["npm", "run", "verify"]
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    profiles: ["web"]
+
+volumes:
+  node_modules:
